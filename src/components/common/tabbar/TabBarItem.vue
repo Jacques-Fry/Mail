@@ -4,7 +4,7 @@
       <slot name="item-icon"></slot>
     </div>
 
-    <div v-else>
+    <div v-else  >
       <slot name="item-icon-active"></slot>
     </div>
 
@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .tab-bar-item {
   flex: 1;
   text-align: center;
