@@ -101,7 +101,7 @@ export default {
           "//img11.360buyimg.com/mobilecms/s360x464_jfs/t1/56953/38/13875/77809/5da8a0e9Ebc2f7bfa/aa585349faf3cf8c.jpg!cc_360x464!q70.dpg.webp",
         title:
           "  芊蕊 卫衣女2019秋冬新款韩版加绒加厚慵懒风宽松百搭学生字母连帽套头上衣外套潮 杏色 M  ",
-        price: 429
+        price: 98
       };
     },
     createGoodsData3() {

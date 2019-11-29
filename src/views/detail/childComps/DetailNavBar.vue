@@ -2,7 +2,7 @@
   <div>
     <navbar>
       <div slot="left" class="back" @click="backClick">
-        <img src="~assets/img/common/back.svg" >
+        <img src="~assets/img/common/back.svg" />
       </div>
       <div slot="center" class="title">
         <div
@@ -21,10 +21,10 @@
 import navbar from "components/common/navbar/NavBar";
 
 export default {
-  name:'DetailNavBar',
+  name: "DetailNavBar",
   data() {
     return {
-      titles: ["商品", "参数", "评论", "推荐"],
+      titles: ["商品", "评论", "参数", "推荐"],
       clickItemIndex: 0
     };
   },
@@ -35,8 +35,8 @@ export default {
     itemClick(index) {
       this.clickItemIndex = index;
     },
-    backClick(){
-      this.$router.back()
+    backClick() {
+      this.$router.back();
     }
   }
 };
@@ -56,7 +56,7 @@ export default {
   color: var(--color-high-text);
 }
 
-.back img{
+.back img {
   margin-top: 12px;
 }
 </style>

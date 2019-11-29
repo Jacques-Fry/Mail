@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="~assets/img/cart/store_information.jpg" alt="">
+    <img src="~assets/img/detail/store_information.jpg" alt="">
   </div>
 </template>
 
