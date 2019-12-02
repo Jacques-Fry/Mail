@@ -47,7 +47,7 @@ export default {
     }
   },
   methods: {
-    scrollTo(x, y, time=500) {
+    scrollTo(x, y, time = 500) {
       this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time);
     },
     refresh() {

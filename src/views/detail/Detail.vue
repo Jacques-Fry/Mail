@@ -1,18 +1,33 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav-bar" />
-    <scroll class="content" :probeType="0" ref="scroll">
+    <detail-nav-bar class="detail-nav-bar" @itemClick="itemClick" ref="navBar" />
+    <scroll class="content" :probeType="3" ref="scroll" @scroll="contentSocrll">
       <detail-swiper :topImg="goods.topImg" />
       <detail-data-show :goods="goods" />
       <detail-store class="detail-store" />
-      <detail-comment class="detail-comment" />
-      <detailImg-show :imgList="goods.imgShowList" @imgLoad="imgLoad" class="detail-img-show" />
+      <detail-comment class="detail-comment" ref="comment" />
+      <detailImg-show
+        :imgList="goods.imgShowList"
+        @imgLoad="imgLoad"
+        class="detail-img-show"
+        ref="params"
+      />
+      <div class="detail-recommended" ref="recommended">商品推荐</div>
+      <goodsList
+        :goods="[createGoodsData1,createGoodsData2,createGoodsData3,createGoodsData1,createGoodsData2,createGoodsData3,]"
+      />
     </scroll>
+    <detail-bottom-bar @addToCart="addToCart" />
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
 
 <script type="text/javascript">
+import { itemImgLoadMixIn, backTopMixIn } from "common/mixins";
+import { debounce } from "common/utils";
+
 import scroll from "components/common/scroll/Scroll";
+import goodsList from "components/content/goods/GoodsList";
 
 import detailNavBar from "./childComps/DetailNavBar";
 import detailSwiper from "./childComps/DetailSwiper";
@@ -20,23 +35,61 @@ import detailDataShow from "./childComps/DetailDataShow";
 import detailStore from "./childComps/DetailStore";
 import detailComment from "./childComps/DetailComment";
 import detailImgShow from "./childComps/DetailImgShow";
+import detailBottomBar from "./childComps/DetailBottomBar";
 
 export default {
   name: "Detail",
   data() {
     return {
       goods: {},
-      id: null
+      id: null,
+      detailTopIndexY: [],
+      getDetailTopY: null,
+      clickItemIndex: 0
     };
   },
   components: {
     scroll,
+    goodsList,
     detailNavBar,
     detailSwiper,
     detailDataShow,
     detailStore,
     detailComment,
-    detailImgShow
+    detailImgShow,
+    detailBottomBar
+  },
+  computed: {
+    createGoodsData1() {
+      return {
+        id: 1,
+        imgUrl:
+          "//img10.360buyimg.com/mobilecms/s360x464_jfs/t1/42076/8/11224/406500/5d4bd67dEcf732337/5c2a565c4d753d96.jpg!cc_360x464!q70.dpg.webp",
+        title:
+          "  Lagogo/拉谷谷2019秋季新款圆领亮丝镂空针织衫女ICMM438A03 米白(TV) 155/S/36  白色 L  ",
+        price: 279
+      };
+    },
+    createGoodsData2() {
+      return {
+        id: 2,
+        imgUrl:
+          "//img11.360buyimg.com/mobilecms/s360x464_jfs/t1/56953/38/13875/77809/5da8a0e9Ebc2f7bfa/aa585349faf3cf8c.jpg!cc_360x464!q70.dpg.webp",
+        title:
+          "  芊蕊 卫衣女2019秋冬新款韩版加绒加厚慵懒风宽松百搭学生字母连帽套头上衣外套潮 杏色 M  ",
+        price: 98
+      };
+    },
+    createGoodsData3() {
+      return {
+        id: 3,
+        imgUrl:
+          "//img14.360buyimg.com/mobilecms/s360x464_jfs/t1/101437/10/3306/228664/5ddea0a5Edabc4710/1a961b82c0493a79.jpg!cc_360x464!q70.dpg.webp",
+        title:
+          "  茵曼2019春装新款棉质翻领文艺复古休闲百搭宽松长袖衬衣衬衫女【F1891011642】 象牙白 M  ",
+        price: 169
+      };
+    }
   },
   created() {
     this.id = this.$route.params.id;
@@ -51,6 +104,19 @@ export default {
         this.goods = this.getData3();
         break;
     }
+
+    //给getDetailTopY进行防抖操作
+    this.getDetailTopY = debounce(() => {
+      this.detailTopIndexY = [];
+      this.detailTopIndexY.push(0);
+      this.detailTopIndexY.push(this.$refs.comment.$el.offsetTop);
+      this.detailTopIndexY.push(this.$refs.params.$el.offsetTop);
+      this.detailTopIndexY.push(this.$refs.recommended.offsetTop);
+      this.detailTopIndexY.push(Number.MAX_VALUE);
+    }, 100);
+  },
+  destroyed() {
+    this.$bus.$off("itemImgLoad", this.itemImgLoadLister);
   },
   methods: {
     getData1() {
@@ -180,9 +246,44 @@ export default {
       };
     },
     imgLoad() {
-      this.$refs.scroll.refresh();
+      this.newRefresh();
+      this.getDetailTopY();
+    },
+    itemClick(index) {
+      console.log(11);
+      this.$refs.scroll.scrollTo(0, -this.detailTopIndexY[index], 500);
+    },
+    contentSocrll(position) {
+      const positionY = -position.y;
+
+      //双向绑定
+      for (let i = 0; i < this.detailTopIndexY.length - 1; i++) {
+        if (
+          this.clickItemIndex !== i &&
+          (positionY >= this.detailTopIndexY[i] &&
+            positionY < this.detailTopIndexY[i + 1])
+        ) {
+          this.clickItemIndex = i;
+          this.$refs.navBar.clickItemIndex = i;
+        }
+      }
+
+      //是否显示回到顶部按钮
+      this.isShowBackTop = positionY > 1000;
+    },
+    addToCart() {
+      //添加购物车
+      const data = this.goods;
+      const product = {};
+      product.imgUrl = data.topImg[0];
+      product.title = data.title;
+      product.selected = data.selected;
+      product.price = data.price;
+      product.id = this.id;
+      this.$store.dispatch("addCart", product);
     }
-  }
+  },
+  mixins: [itemImgLoadMixIn, backTopMixIn]
 };
 </script>
 
@@ -199,11 +300,17 @@ export default {
   background-color: #fff;
 }
 .content {
-  height: calc(100% - 44px);
+  height: calc(100% - 93px);
+  overflow: hidden;
 }
 .detail-comment,
 .detail-img-show,
-.detail-store {
+.detail-store,
+.detail-recommended {
   border-top: 5px solid #eee;
+}
+.detail-recommended {
+  text-align: center;
+  line-height: 60px;
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
   <div class="goods-img-show">
     <div class="goods-introduce">商品介绍</div>
-    <img v-for="(item,index) in imgList" :key="index" :src="item" @laod="imgLoad" />
+    <img v-for="(item,index) in imgList" :key="index" :src="item" @load="imgLoad" />
   </div>
 </template>
 
 <script type="text/javascript">
 export default {
-  data() {
-    return {
-      imgListLength: 0,
-      imgNowLength: 0
-    };
-  },
+  // data() {
+  //   return {
+  //     imgListLength: 0,
+  //     imgNowLength: 0
+  //   };
+  // },
   props: {
     imgList: {
       type: Array,
@@ -21,16 +21,16 @@ export default {
   },
   methods: {
     imgLoad() {
-      if(++this.imgNowLength === this.imgLength){
+      // if(++this.imgNowLength >= this.imgListLength){
         this.$emit("imgLoad")
-      }
+      // }
     }
-  },
-  watch: {
-    detailInfo() {
-      this.imgListLength = this.imgList.length;
-    }
-  }
+  // },
+  // watch: {
+  //   detailInfo() {
+  //     this.imgListLength = this.imgList.length;
+  //   }
+   }
 };
 </script>
 

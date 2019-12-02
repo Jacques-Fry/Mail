@@ -33,17 +33,18 @@
 </template>
 
 <script type="text/javascript">
+
+import {itemImgLoadMixIn,backTopMixIn} from 'common/mixins'
+
 import navbar from "components/common/navbar/NavBar";
 import scroll from "components/common/scroll/Scroll";
 
 import tabControl from "components/content/tabControl/TabControl";
 import goodsList from "components/content/goods/GoodsList";
-import backTop from "components/content/backTop/BackTop";
 
 import homeSwiper from "./childComps/HomeSwiper";
 import featureView from "./childComps/FeatureView";
 
-import { debounce } from "common/utils";
 
 import { getHomeData } from "network/home";
 
@@ -54,7 +55,6 @@ export default {
     scroll,
     tabControl,
     goodsList,
-    backTop,
     homeSwiper,
     featureView
   },
@@ -77,7 +77,6 @@ export default {
         }
       },
       currentType: "pop",
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       scrollY: 0
@@ -121,19 +120,16 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-    //监听图片加载
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
-    this.$bus.$on("itemImgLoad", () => {
-      refresh();
-    });
-  },
   activated() {
     this.$refs.scroll.scrollTo(0, this.scrollY, 0);
     this.$refs.scroll.refresh();
   },
   deactivated() {
+    //记录离开时的位置
     this.scrollY = this.$refs.scroll.getScrollY();
+
+    //离开时销毁事件接听
+    this.$bus.$off("itemImgLoad", this.itemImgLoadLister);
   },
   methods: {
     /**
@@ -154,9 +150,7 @@ export default {
       this.$refs.tabControl1.checkItemIndex = index;
       this.$refs.tabControl2.checkItemIndex = index;
     },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
-    },
+   
     contentScorll(position) {
       this.isShowBackTop = -position.y > 1000;
       this.isTabFixed = -position.y > this.tabOffsetTop;
@@ -239,7 +233,8 @@ export default {
         dataNow
       );
     }
-  }
+  },
+  mixins: [itemImgLoadMixIn,backTopMixIn]
 };
 </script>
 
