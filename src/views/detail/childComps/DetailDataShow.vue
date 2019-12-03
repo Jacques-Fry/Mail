@@ -1,6 +1,6 @@
 <template>
   <div v-if="Object.keys(goods).length !== 0">
-    <h2 class="goods-price">{{goods.price}}</h2>
+    <h2 class="goods-price">￥{{goods.price|toFixed2}}</h2>
     <p class="goods-title">{{goods.title}}</p>
     <table class="goods-table" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -54,6 +54,11 @@ export default {
     goods: {
       type: Object,
       default: {}
+    }
+  },
+  filters: {
+    toFixed2(data) {
+      return data.toFixed(2);
     }
   }
 };

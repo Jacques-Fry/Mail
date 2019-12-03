@@ -37,6 +37,8 @@ import detailComment from "./childComps/DetailComment";
 import detailImgShow from "./childComps/DetailImgShow";
 import detailBottomBar from "./childComps/DetailBottomBar";
 
+import {mapActions} from "vuex"
+
 export default {
   name: "Detail",
   data() {
@@ -119,6 +121,7 @@ export default {
     this.$bus.$off("itemImgLoad", this.itemImgLoadLister);
   },
   methods: {
+    ...mapActions(['addCart']),
     getData1() {
       return {
         topImg: [
@@ -130,7 +133,7 @@ export default {
         ],
         title:
           "Lagogo/拉谷谷2019秋季新款圆领亮丝镂空针织衫女ICMM438A03 米白(TV) 155/S/36",
-        price: "￥279.00",
+        price: 279.5,
         selected: "米白,M,1个",
         delivery: "北京朝阳区三环到四环之间 现货",
         freight: "在线支付免运费",
@@ -170,7 +173,7 @@ export default {
         ],
         title:
           "芊蕊 卫衣女2019秋冬新款韩版加绒加厚慵懒风宽松百搭学生字母连帽套头上衣外套潮 杏色 M",
-        price: "￥98.00",
+        price: 98.0,
         selected: "杏色,M,1个",
         delivery: "北京朝阳区三环到四环之间 现货",
         freight: "在线支付免运费",
@@ -217,7 +220,7 @@ export default {
         ],
         title:
           "茵曼2019春装新款棉质翻领文艺复古休闲百搭宽松长袖衬衣衬衫女【F1891011642】 象牙白 M",
-        price: "￥169.00",
+        price: 169.0,
         selected: "象牙白,M,1个",
         delivery: "北京朝阳区三环到四环之间 现货",
         freight: "顺丰快递 20元",
@@ -280,7 +283,10 @@ export default {
       product.selected = data.selected;
       product.price = data.price;
       product.id = this.id;
-      this.$store.dispatch("addCart", product);
+
+      this.addCart(product).then(res => {
+        this.$toast.show(res);
+      });
     }
   },
   mixins: [itemImgLoadMixIn, backTopMixIn]

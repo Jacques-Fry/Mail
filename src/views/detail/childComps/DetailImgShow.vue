@@ -1,7 +1,7 @@
 <template>
   <div class="goods-img-show">
     <div class="goods-introduce">商品介绍</div>
-    <img v-for="(item,index) in imgList" :key="index" :src="item" @load="imgLoad" />
+    <img v-for="(item,index) in imgList" :key="index" v-lazy="item" @load="imgLoad" />
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   props: {
     imgList: {
       type: Array,
-      deafult: []
+      default: []
     }
   },
   methods: {

@@ -5,7 +5,9 @@
       <div slot="center">购物车({{length}})</div>
     </nav-bar>
     <!-- 列表 -->
-      <cart-list />
+    <cart-list/>
+    <!-- 统计 -->
+    <cart-bottom-bar />
   </div>
 </template>
 
@@ -13,6 +15,7 @@
 import navBar from "components/common/navbar/NavBar";
 
 import cartList from "./childComps/CartList";
+import cartBottomBar from "./childComps/CartBottomBar";
 
 import { mapGetters } from "vuex";
 
@@ -22,7 +25,8 @@ export default {
   },
   components: {
     navBar,
-    cartList
+    cartList,
+    cartBottomBar
   },
   computed: {
     ...mapGetters({
@@ -33,9 +37,9 @@ export default {
 </script>
 
 <style scoped>
-#cart{
+#cart {
+  position: relative;
   height: 100vh;
-  overflow: hidden;
 }
 
 .cart-nav-bar {

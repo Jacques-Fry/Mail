@@ -1,8 +1,10 @@
 <template>
   <div class="cart-list">
-    <scroll class="content" :probe-type="0" ref="scroll">
-      asdasasdasdasdasd
-      <cart-list-item v-for="(item,index) in cartList" :key="index" :product="item">{{item}}</cart-list-item>
+    <scroll class="content" ref="scroll">
+      <div v-if="cartLength>0">
+        <cart-list-item v-for="(item,index) in cartList" :key="index" :product="item" />
+      </div>
+      <div v-else class="empty">抱歉，购物车是空的 ╮(๑•́ ₃•̀๑)╭</div>
     </scroll>
   </div>
 </template>
@@ -22,18 +24,26 @@ export default {
   },
   computed: {
     ...mapGetters({
-      cartList: "getCartList"
+      cartList: "getCartList",
+      cartLength: "getCartLength"
     })
+  },
+  activated() {
+    this.$refs.scroll.refresh();
   }
 };
 </script>
 
 <style scoped>
 .cart-list {
-  height: calc(100% - 93px);
+  height: calc(100% - 133px);
 }
 .content {
   height: 100%;
   overflow: hidden;
+}
+.empty {
+  text-align: center;
+  line-height: 50px;
 }
 </style>

@@ -1,2 +1,3 @@
-export const ADD_CART_COUNT = "add_cart_count"
-export const ADD_CART = "add_cart"
+export const ADD_CART_COUNT = 'add_cart_count'
+export const ADD_CART = 'add_cart'
+export const UPD_CART = 'upd-cart'

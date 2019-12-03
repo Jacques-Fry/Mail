@@ -15,7 +15,7 @@ export default {
   props: {
     topImg: {
       type: Array,
-      deafult: []
+      default: []
     }
   },
   components: {
