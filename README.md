@@ -1,4 +1,4 @@
-# mail01
+# Mail
 
 ## Project setup
 ```
@@ -17,3 +17,6 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 说明
+分类与我的界面未完成
