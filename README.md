@@ -19,5 +19,5 @@ npm run build
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### State
-The "classification" and "my" interface is not complete
+The "Category" and "Profile" interface is not complete
 [Mail address](http://6s.net579.com:24926)
