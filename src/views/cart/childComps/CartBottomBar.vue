@@ -67,6 +67,7 @@ export default {
 .bottom-bar {
   position: relative;
   display: flex;
+  z-index: 9;
 
   height: 40px;
 
@@ -80,9 +81,9 @@ export default {
   width: 80px;
 }
 .check-button {
-  height: 22px;
-  width: 22px;
-  line-height: 22px;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
   margin-left: 5px;
   margin-right: 5px;
 }

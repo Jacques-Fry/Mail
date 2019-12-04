@@ -5,7 +5,7 @@ import backTop from "components/content/backTop/BackTop";
  * 混入的使用
  */
 
- //图片加载
+//图片加载
 export const itemImgLoadMixIn = {
   data() {
     return {
@@ -15,7 +15,7 @@ export const itemImgLoadMixIn = {
   },
   mounted() {
     //监听图片加载
-    this.newRefresh = debounce(this.$refs.scroll.refresh, 100);
+    this.newRefresh = debounce(this.$refs.scroll.refresh, 100)
     this.itemImgLoadLister = () => {
       this.newRefresh();
     }

@@ -43,7 +43,7 @@ export default {
 }
 
 .cart-nav-bar {
-  background-color: var(--color-high-text);
+  background-color: var(--color-tint);
   color: #fff;
 }
 </style>

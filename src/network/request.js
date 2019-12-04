@@ -13,6 +13,7 @@ export function request(config) {
     return config
   },err=>{
     console.log(err)
+    this.$toast.show('网络异常')
   })
 
   //响应拦截
@@ -20,6 +21,7 @@ export function request(config) {
     return res.data
   },err=>{
     console.log(err)
+    this.$toast.show('网络异常')
   })
 
   //发送网络请求
