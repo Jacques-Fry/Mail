@@ -18,6 +18,6 @@ npm run build
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### 说明
-分类与我的界面未完成
-[Mail项目地址](http://6s.net579.com:24926)
+### State
+Classification with my interface is not complete
+[Mail address](http://6s.net579.com:24926)
