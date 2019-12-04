@@ -15,9 +15,6 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 ### State
 The "Category" and "Profile" interface is not complete
 [Mail address](http://6s.net579.com:24926)
