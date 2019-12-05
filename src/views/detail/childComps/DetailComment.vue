@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="goods-comment">
     <img src="~assets/img/detail/comment.png" alt />
   </div>
 </template>

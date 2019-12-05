@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="goods-store">
     <img src="~assets/img/detail/store_information.jpg" alt="">
   </div>
 </template>
@@ -12,5 +12,7 @@ export default {
 </script>
 
 <style scoped>
-  
+  .goods-store img{
+    width: 100%;
+  }
 </style>
