@@ -1,4 +1,4 @@
-# Mail
+# Mail(自制)
 
 ## Project setup
 ```
@@ -16,5 +16,6 @@ npm run build
 ```
 
 ### State
-The "Category" and "Profile" interface is not complete
-[Mail address](http://6s.net579.com:24926)
+The "Category" and "Profile" interface is not complete  
+
+[项目地址](http://6s.net579.com:24926)
